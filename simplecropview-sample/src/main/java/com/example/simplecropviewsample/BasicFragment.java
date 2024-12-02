@@ -14,10 +14,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.appcompat.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -188,7 +189,7 @@ import permissions.dispatcher.RuntimePermissions;
 
   public void dismissProgress() {
     if (!isResumed()) return;
-    android.support.v4.app.FragmentManager manager = getFragmentManager();
+    FragmentManager manager = getFragmentManager();
     if (manager == null) return;
     ProgressDialogFragment f = (ProgressDialogFragment) manager.findFragmentByTag(PROGRESS_DIALOG);
     if (f != null) {
@@ -290,7 +291,7 @@ import permissions.dispatcher.RuntimePermissions;
     @Override public void onClick(View v) {
       switch (v.getId()) {
         case R.id.buttonDone:
-          BasicFragmentPermissionsDispatcher.cropImageWithCheck(BasicFragment.this);
+          BasicFragmentPermissionsDispatcher.cropImageWithPermissionCheck(BasicFragment.this);
           break;
         case R.id.buttonFitImage:
           mCropView.setCropMode(CropImageView.CropMode.FIT_IMAGE);
@@ -329,7 +330,7 @@ import permissions.dispatcher.RuntimePermissions;
           mCropView.rotateImage(CropImageView.RotateDegrees.ROTATE_90D);
           break;
         case R.id.buttonPickImage:
-          BasicFragmentPermissionsDispatcher.pickImageWithCheck(BasicFragment.this);
+          BasicFragmentPermissionsDispatcher.pickImageWithPermissionCheck(BasicFragment.this);
           break;
       }
     }
